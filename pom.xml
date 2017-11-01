@@ -17,6 +17,7 @@
 		<maven.install.plugin.version>2.5.2</maven.install.plugin.version>
 		
 		<maven.failsafe.plugin.version>2.20.1</maven.failsafe.plugin.version>
+		<maven.build.helper.plugin.version>3.0.0</maven.build.helper.plugin.version>
     </properties>
 	
 	<build>
@@ -83,6 +84,39 @@
 					</execution>
 				</executions>
 			</plugin>
-      </plugins>
-   </build>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>${maven.build.helper.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>add-test-source</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${basedir}/src/integration-test/java</source>
+							</sources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-test-resource</id>
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>add-test-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/integration-test/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
